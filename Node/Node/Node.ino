@@ -4,15 +4,15 @@
 #include <ESP8266HTTPClient.h>
 #include <string.h>
  
-const char* ssid = "Ettirisa-wifi";//type your ssid
-const char* password = "ettirisa1234";//type your password
+const char* ssid = "Darth_Vader";//type your ssid
+const char* password = "12345678";//type your password
  
 int ledPin = 4; // GPIO2 of ESP8266
 WiFiServer server(80);//Service Port
 HTTPClient http;
 
 int PIR = 4;
-int mq2 = 12;
+int mq2 = A0;
 
 bool connect_wifi() {
   Serial.println();
@@ -53,10 +53,10 @@ void loop() {
   if(WiFi.status()!=WL_CONNECTED) connect_wifi();
   else {
     int pir = digitalRead(PIR);
-    int mqtwo = digitalRead(mq2);
+    int mqtwo = analogRead(mq2);
     
     char gateway[100];
-    sprintf(gateway, "http://192.168.0.107/submit_data.php?node_id=%d&pir=%d&mq2=%d", NODE_ID, pir, mqtwo);
+    sprintf(gateway, "http://192.168.0.100/submit_data.php?node_id=%d&pir=%d&mq2=%d", NODE_ID, pir, mqtwo);
     http.begin(gateway); //HTTP
     int httpCode = http.GET();
     //Serial.println(http.getString());
