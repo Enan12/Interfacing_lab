@@ -41,6 +41,7 @@ bool connect_wifi() {
 
 void setup() {
   // put your setup code here, to run once:
+  WiFi.mode(WIFI_STA);
   Serial.begin(115200);
   pinMode(PIR, INPUT);
   pinMode(mq2, INPUT);
@@ -56,7 +57,7 @@ void loop() {
     int mqtwo = analogRead(mq2);
     
     char gateway[100];
-    sprintf(gateway, "http://192.168.0.100/submit_data.php?node_id=%d&pir=%d&mq2=%d", NODE_ID, pir, mqtwo);
+    sprintf(gateway, "http://192.168.0.101/submit_data.php?node_id=%d&pir=%d&mq2=%d", NODE_ID, pir, mqtwo);
     http.begin(gateway); //HTTP
     int httpCode = http.GET();
     //Serial.println(http.getString());
